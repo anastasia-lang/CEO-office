@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yuno.strategy — Indonesia Market Entry</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  background:#F0F1F7;
+  color:#1C1E26;
+  line-height:1.6;
+}
+
+/* ── HEADER ────────────────────────────────────────────── */
+.header{
+  background:#1C1E26;
+  padding:0.9rem 2rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  position:sticky;top:0;z-index:100;
+}
+.logo{display:flex;align-items:center;gap:0.5rem;text-decoration:none}
+.logo-mark{
+  width:28px;height:28px;background:#3E4FE0;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:white;font-weight:700;font-size:12px;flex-shrink:0
+}
+.logo-text{color:white;font-weight:700;font-size:1rem;letter-spacing:-0.02em}
+.logo-text .product{color:#8B99FF;font-weight:400}
+.header-right{display:flex;align-items:center;gap:1rem}
+.header-label{color:#8E95A5;font-size:0.75rem;letter-spacing:0.04em}
+.btn-download{
+  display:inline-flex;align-items:center;gap:0.35rem;
+  padding:0.4rem 0.875rem;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.14);
+  border-radius:4px;
+  color:white;font-size:0.78rem;font-weight:600;
+  cursor:pointer;text-decoration:none;
+  transition:background 0.2s;white-space:nowrap;
+}
+.btn-download:hover{background:rgba(255,255,255,0.14)}
+
+/* ── PRINT ──────────────────────────────────────────────── */
+@media print{
+  @page{margin:2cm 2.2cm}
+  body{background:white}
+  .header{display:none}
+  .page{box-shadow:none;margin:0;border-radius:0;max-width:100%}
+  .acc-body{max-height:none!important;overflow:visible!important}
+  .accordion.open .acc-head,.acc-head:hover{background:white}
+  .acc-chevron,.acc-num{display:none}
+  .acc-head{padding:0.75rem 2.5rem;pointer-events:none}
+  .acc-head .acc-title{font-size:1rem;font-weight:700}
+  .model-link-box,.btn-model,.btn-csv{display:none!important}
+  .accordion{break-inside:avoid}
+  table{break-inside:avoid}
+  .tbl-wrap{overflow:visible}
+  .sens-wrap{overflow:visible}
+  .footer{background:white}
+  .walkaway-block{background:#FFF9F0!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .rec-block{background:#F8F9FF!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .row-highlight td{background:#F8F9FF!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .cell-b{background:#D1FAE5!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .cell-n{background:#FEF3C7!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .cell-p{background:#FEE2E2!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+
+/* ── PAGE SHELL ─────────────────────────────────────────── */
+.page{
+  max-width:820px;
+  margin:2rem auto 3rem;
+  background:white;
+  border-radius:4px;
+  box-shadow:0 1px 8px rgba(0,0,0,0.09);
+  overflow:hidden;
+}
+
+/* ── MEMO HEADER ────────────────────────────────────────── */
+.memo-header{
+  padding:2.25rem 2.5rem 1.75rem;
+  border-bottom:2px solid #1C1E26;
+}
+.memo-meta{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  margin-bottom:1.25rem;
+  flex-wrap:wrap;
+  gap:0.5rem;
+}
+.memo-to{font-size:0.8rem;color:#555;line-height:1.8}
+.memo-to strong{color:#1C1E26;font-weight:600}
+.memo-date{font-size:0.8rem;color:#888;text-align:right}
+.memo-title{font-size:1.45rem;font-weight:700;line-height:1.2;letter-spacing:-0.02em;color:#1C1E26}
+.memo-subtitle{font-size:0.875rem;color:#555;margin-top:0.3rem}
+
+/* ── EXECUTIVE SUMMARY ──────────────────────────────────── */
+.exec-summary{padding:1.75rem 2.5rem;border-bottom:1px solid #E5E7EB}
+
+.section-title{
+  font-size:0.68rem;font-weight:700;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:#3E4FE0;margin-bottom:1rem;
+}
+
+.rec-block{
+  background:#F8F9FF;
+  border-left:3px solid #3E4FE0;
+  padding:1rem 1.25rem;
+  margin-bottom:1.5rem;
+  border-radius:0 4px 4px 0;
+}
+.rec-block p{font-size:0.9rem;color:#1C1E26;line-height:1.65;margin-bottom:0.5rem}
+.rec-block p:last-child{margin-bottom:0}
+.rec-block strong{font-weight:700}
+
+.walkaway-block{
+  background:#FEF9F0;
+  border-left:3px solid #D97706;
+  padding:0.875rem 1.25rem;
+  margin-bottom:1.5rem;
+  border-radius:0 4px 4px 0;
+}
+.walkaway-block p{font-size:0.875rem;color:#1C1E26;line-height:1.6}
+
+/* ── TABLES ─────────────────────────────────────────────── */
+.tbl-wrap{overflow-x:auto;margin-bottom:1.25rem}
+table{width:100%;border-collapse:collapse;font-size:0.845rem}
+thead th{
+  background:#F5F6FA;
+  padding:0.6rem 0.875rem;
+  text-align:left;
+  font-weight:700;
+  font-size:0.72rem;
+  letter-spacing:0.07em;
+  text-transform:uppercase;
+  color:#555;
+  border-bottom:2px solid #D1D5DB;
+}
+thead th.right{text-align:right}
+tbody td{
+  padding:0.65rem 0.875rem;
+  border-bottom:1px solid #EBEBEB;
+  color:#1C1E26;
+  vertical-align:top;
+}
+tbody td.right{text-align:right}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:#FAFBFF}
+.row-highlight td{background:#F8F9FF!important;font-weight:600}
+.row-highlight td:first-child{color:#3E4FE0}
+
+/* ── BODY TEXT ──────────────────────────────────────────── */
+.memo-body{padding:1.75rem 2.5rem;border-bottom:1px solid #E5E7EB}
+
+p.body-p{font-size:0.9rem;color:#333;line-height:1.7;margin-bottom:0.875rem}
+p.body-p:last-child{margin-bottom:0}
+
+ul.body-ul{
+  list-style:none;padding:0;
+  margin:0.5rem 0 1rem 0;
+}
+ul.body-ul li{
+  font-size:0.875rem;color:#333;
+  padding:0.3rem 0 0.3rem 1.1rem;
+  position:relative;line-height:1.6;
+}
+ul.body-ul li::before{
+  content:'–';position:absolute;left:0;
+  color:#3E4FE0;font-weight:700;
+}
+ul.body-ul li strong{color:#1C1E26;font-weight:600}
+
+ol.body-ol{padding-left:1.25rem;margin:0.5rem 0 1rem 0}
+ol.body-ol li{font-size:0.875rem;color:#333;line-height:1.65;padding:0.2rem 0}
+ol.body-ol li strong{color:#1C1E26;font-weight:600}
+
+.sub-head{
+  font-size:0.78rem;font-weight:700;
+  letter-spacing:0.07em;text-transform:uppercase;
+  color:#1C1E26;margin:1.25rem 0 0.6rem;
+}
+.sub-head:first-child{margin-top:0}
+
+.note{font-size:0.78rem;color:#888;margin-top:0.5rem;line-height:1.5}
+
+/* ── ACCORDION ──────────────────────────────────────────── */
+.accordion{border-bottom:1px solid #E5E7EB}
+.accordion:last-child{border-bottom:none}
+
+.acc-head{
+  padding:1.1rem 2.5rem;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:space-between;
+  user-select:none;
+  transition:background 0.15s;
+}
+.acc-head:hover{background:#FAFBFF}
+.accordion.open .acc-head{background:#F8F9FF}
+
+.acc-head-left{display:flex;align-items:center;gap:0.875rem}
+.acc-num{
+  width:22px;height:22px;border-radius:50%;
+  background:#F0F1F7;
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.7rem;font-weight:700;color:#555;flex-shrink:0;
+}
+.accordion.open .acc-num{background:#3E4FE0;color:white}
+
+.acc-title{font-size:0.9rem;font-weight:700;color:#1C1E26}
+.acc-sub{font-size:0.78rem;color:#888;margin-top:0.1rem}
+.acc-chevron{color:#BBB;font-size:0.85rem;transition:transform 0.2s;flex-shrink:0}
+.accordion.open .acc-chevron{transform:rotate(180deg);color:#3E4FE0}
+
+.acc-body{max-height:0;overflow:hidden;transition:max-height 0.4s ease}
+.accordion.open .acc-body{max-height:8000px}
+.acc-content{padding:1.5rem 2.5rem 2rem;border-top:1px solid #EBEBEB}
+
+/* ── SENSITIVITY MATRIX ─────────────────────────────────── */
+.sens-wrap{overflow-x:auto;margin-bottom:1rem}
+.sens-table{width:100%;border-collapse:collapse;font-size:0.8rem}
+.sens-table th{
+  padding:0.5rem 0.65rem;text-align:center;
+  font-weight:700;font-size:0.68rem;letter-spacing:0.05em;text-transform:uppercase;
+  color:#555;background:#F5F6FA;border:1px solid #D1D5DB;
+}
+.sens-table th.left-head{text-align:left}
+.sens-table td{padding:0.5rem 0.65rem;border:1px solid #D1D5DB;text-align:center;font-size:0.78rem;font-weight:600}
+.cell-b{background:#D1FAE5;color:#065F46}
+.cell-n{background:#FEF3C7;color:#92400E}
+.cell-p{background:#FEE2E2;color:#991B1B}
+.cell-head{background:#F5F6FA;font-weight:700;text-align:left;color:#1C1E26}
+
+/* ── MODEL LINK BOX ─────────────────────────────────────── */
+.model-link-box{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 1.25rem;
+  background:#F8F9FF;
+  border:1px solid #D4D9F7;
+  border-radius:4px;
+  margin-top:1.25rem;
+  flex-wrap:wrap;gap:0.75rem;
+}
+.model-link-box p{font-size:0.855rem;color:#333;line-height:1.5}
+.model-link-box p strong{color:#1C1E26;font-weight:600;display:block;margin-bottom:0.15rem}
+.btn-model{
+  display:inline-flex;align-items:center;gap:0.35rem;
+  padding:0.5rem 1rem;
+  background:#3E4FE0;color:white;
+  border-radius:4px;font-size:0.8rem;font-weight:600;
+  text-decoration:none;white-space:nowrap;
+  border:none;cursor:pointer;transition:background 0.2s;
+}
+.btn-model:hover{background:#3341C8}
+.btn-csv{
+  display:inline-flex;align-items:center;gap:0.35rem;
+  padding:0.5rem 1rem;
+  background:white;color:#3E4FE0;
+  border-radius:4px;font-size:0.8rem;font-weight:600;
+  text-decoration:none;white-space:nowrap;
+  border:1.5px solid #3E4FE0;cursor:pointer;transition:background 0.2s;
+}
+.btn-csv:hover{background:#EEF0FF}
+.model-btns{display:flex;gap:0.5rem;flex-wrap:wrap}
+
+/* ── NEG TABLE ──────────────────────────────────────────── */
+.neg-table td.term-col{font-weight:600;width:22%}
+.neg-table td.ask-col{width:30%}
+.neg-table td.walkaway-col{width:28%;font-size:0.8rem;color:#555}
+.prio-critical{display:inline-block;font-size:0.7rem;font-weight:700;background:#FEE2E2;color:#991B1B;padding:0.1rem 0.45rem;border-radius:3px;margin-bottom:0.25rem}
+.prio-imp{display:inline-block;font-size:0.7rem;font-weight:700;background:#FEF3C7;color:#92400E;padding:0.1rem 0.45rem;border-radius:3px;margin-bottom:0.25rem}
+.prio-std{display:inline-block;font-size:0.7rem;font-weight:700;background:#F0F1F7;color:#555;padding:0.1rem 0.45rem;border-radius:3px;margin-bottom:0.25rem}
+
+/* ── TIMELINE ───────────────────────────────────────────── */
+.timeline{margin-top:0.5rem}
+.tl-item{display:flex;gap:1rem;padding-bottom:1.5rem;position:relative}
+.tl-item:not(:last-child)::before{
+  content:'';position:absolute;left:11px;top:24px;bottom:0;
+  width:1px;background:#D1D5DB;
+}
+.tl-dot{
+  width:24px;height:24px;border-radius:50%;
+  background:#3E4FE0;display:flex;align-items:center;justify-content:center;
+  color:white;font-size:0.65rem;font-weight:700;flex-shrink:0;margin-top:2px;
+}
+.tl-dot.dim{background:#E5E7EB;color:#888}
+.tl-period{font-size:0.68rem;font-weight:700;color:#3E4FE0;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.2rem}
+.tl-title{font-weight:700;font-size:0.875rem;color:#1C1E26;margin-bottom:0.2rem}
+.tl-text{font-size:0.835rem;color:#555;line-height:1.55}
+
+/* ── ASSUMPTION TABLE ───────────────────────────────────── */
+.ass-highlight{background:#FFFBEB!important;border-left:3px solid #D97706}
+
+/* ── FOOTER ─────────────────────────────────────────────── */
+.footer{
+  padding:1.25rem 2.5rem;
+  background:#F8F9FB;
+  border-top:1px solid #E5E7EB;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:0.5rem;
+}
+.footer-left{display:flex;align-items:center;gap:0.5rem}
+.footer-logo{width:20px;height:20px;background:#3E4FE0;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:9px;font-weight:700}
+.footer-text{font-size:0.75rem;color:#888}
+</style>
+</head>
+<body>
+
+<!-- SITE HEADER -->
+<header class="header">
+  <a class="logo" href="#">
+    <div class="logo-mark">Y</div>
+    <span class="logo-text">Yuno<span class="product">.strategy</span></span>
+  </a>
+  <div class="header-right">
+    <span class="header-label">Confidential · Internal</span>
+    <button class="btn-download" onclick="printMemo()">↓ Download memo</button>
+  </div>
+</header>
+
+<div class="page">
+
+  <!-- MEMO HEADER -->
+  <div class="memo-header">
+    <div class="memo-meta">
+      <div class="memo-to">
+        <strong>To:</strong> CEO, VP Strategy<br>
+        <strong>From:</strong> Strategy<br>
+        <strong>Re:</strong> PayLink Partnership — Indonesia Market Entry
+      </div>
+      <div class="memo-date">February 2026<br>Confidential</div>
+    </div>
+    <div class="memo-title">The PayLink Ultimatum: Should Yuno Partner or Compete in Indonesia?</div>
+    <div class="memo-subtitle">Decision required within two weeks. Three options modelled. Clear recommendation below.</div>
+  </div>
+
+  <!-- EXECUTIVE SUMMARY -->
+  <div class="exec-summary">
+    <div class="section-title">Executive Summary</div>
+
+    <div class="section-title" style="margin-bottom:0.5rem">Context</div>
+    <p class="body-p" style="margin-bottom:1.25rem;font-size:0.875rem;color:#444;line-height:1.75">Indonesia is the next strategic market for Yuno, but we have a near-term gap in local payment coverage. We must decide in two weeks whether to partner with PayLink to launch in ~60 days — fast and broad coverage, but lower margins and a 3-year exclusivity lock-in — or continue building our own direct integrations, which offer better economics and control but will take 6–9 more months. The urgency is that three key merchants are pressuring for Indonesia by Q3 2024 and may switch to competitors if we miss the window. The core tradeoff is speed and merchant retention now versus margin and flexibility later, with PayLink's approval-rate advantage still unproven.</p>
+
+    <div class="rec-block">
+      <p><strong>Recommendation: accept PayLink's proposal, but negotiate the exclusivity down to 12–18 months.</strong> Use PayLink to launch Indonesia in 60 days, protecting the three at-risk merchants, while Yuno's own direct integrations continue in parallel. By Year 2, begin transitioning volume onto Yuno's stack at full economics.</p>
+      <p>The 3-year deal as written is too expensive. PayLink takes 65% of revenue, dropping Yuno's effective take rate from ~0.20% to ~0.07% — nearly 3x worse. On $550M of GMV in Year 3 alone, that gap costs around $700K in foregone revenue. And three years of exclusivity means no routing optimization and no leverage over PayLink for the entire growth phase of what could be Yuno's largest Asian market — which is Yuno's core product.</p>
+      <p>But walking away entirely is equally risky. The three merchants represent $360K in existing annual revenue and could pull their whole Yuno relationship, not just Indonesia. One has already started a pilot with Pagoda Payments. Waiting another six months to build direct is a real churn risk.</p>
+      <p>The bridge solves both problems: Indonesia goes live in 60 days, the merchants stay, and Yuno only gives up the better economics for one year — not three. The numbers confirm it. Bridge NPV over three years is $1.63M, versus $1.38M for the full PayLink exclusive and $1.55M for the direct build.</p>
+    </div>
+
+    <div class="sub-head">Three-year financial comparison</div>
+    <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Option</th>
+          <th class="right">3-yr Revenue</th>
+          <th class="right">3-yr NPV (12%)</th>
+          <th>Unit economics</th>
+          <th>Merchant retention risk</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>A. PayLink exclusive (as proposed)</td>
+          <td class="right">$1.76M</td>
+          <td class="right">$1.38M</td>
+          <td>0.07% take rate throughout</td>
+          <td>Low — Indonesia live in 60 days</td>
+        </tr>
+        <tr>
+          <td>B. Direct build (decline partnership)</td>
+          <td class="right">$2.06M</td>
+          <td class="right">$1.55M</td>
+          <td>0.20% take rate from Month 9</td>
+          <td>High — misses Q3 deadline</td>
+        </tr>
+        <tr class="row-highlight">
+          <td>C. Bridge hybrid <em>(recommended)</em></td>
+          <td class="right">$2.18M</td>
+          <td class="right">$1.63M</td>
+          <td>Year 1: 0.07%; Year 2+: 0.20%</td>
+          <td>Low — Indonesia live in 60 days</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="note">GMV assumptions: $120M / $300M / $550M (Y1/Y2/Y3). Includes retained revenue from three at-risk merchants. Churn probability: 5% (PayLink/Bridge), 30% (Direct Build). See Section 2 for full model and sensitivity analysis.</p>
+
+    <div class="sub-head" style="margin-top:1.25rem">What the decision hinges on</div>
+    <ol class="body-ol">
+      <li><strong>Exclusivity flexibility.</strong> If PayLink will not cap the lock-in to 12–18 months, the bridge is not available and the choice narrows to accepting a structurally damaging deal or building direct and managing the churn risk aggressively.</li>
+      <li><strong>Merchant churn type.</strong> The three at-risk accounts could exit Yuno entirely (the $417K per merchant worst case) or simply find another Indonesia solution while staying on Yuno for LATAM and Europe. That distinction changes the financial case for Direct Build significantly.</li>
+      <li><strong>Direct build execution confidence.</strong> The product team estimates 6 more months to feature parity. If that slips to 9–12 months, the bridge period needs to be extended and the economics shift further toward partnership.</li>
+    </ol>
+
+    <div class="walkaway-block">
+      <p><strong>Non-negotiable walk-away condition:</strong> If PayLink insists on three-year blanket exclusivity with no performance-based exit rights, decline the deal. The cost of routing lock-in over 36 months in Indonesia's growth phase outweighs the merchant retention value of the partnership under any reasonable scenario.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 1: STRATEGIC ANALYSIS -->
+  <div class="accordion" id="acc1">
+    <div class="acc-head" onclick="toggleAcc('acc1')">
+      <div class="acc-head-left">
+        <div class="acc-num">1</div>
+        <div>
+          <div class="acc-title">Strategic Analysis</div>
+          <div class="acc-sub">Exclusivity risk, approval rate assessment, competitive context</div>
+        </div>
+      </div>
+      <div class="acc-chevron">▾</div>
+    </div>
+    <div class="acc-body">
+      <div class="acc-content">
+
+        <div class="sub-head">The core question</div>
+        <p class="body-p">Yuno's Indonesia entry is constrained by a narrow window. Three enterprise merchants need Indonesia coverage by Q3 2024 or they will evaluate alternatives — one is already piloting Pagoda Payments, a direct Yuno competitor. PayLink solves this in 60 days. Building direct takes nine months from today.</p>
+        <p class="body-p">The real tradeoff is not about PayLink's API catalog. It is whether Yuno should trade strategic control and long-term unit economics for speed-to-market in a high-barrier market. A 3-year exclusive partnership effectively converts Indonesia into a single-provider resale model, eliminating Yuno's ability to differentiate on routing, optimization, and merchant experience in what could become one of its largest markets.</p>
+
+        <div class="sub-head">Why the exclusivity clause matters more than the revenue share</div>
+        <p class="body-p">The 35/65 revenue split is painful — Yuno's effective take rate drops from ~0.20% to ~0.07%, approximately 2.9x worse. But that is a recoverable problem once direct integrations are live. Exclusivity is not.</p>
+        <ul class="body-ul">
+          <li><strong>Single-provider concentration.</strong> Any PayLink outage, pricing change, or regulatory constraint affects Yuno's entire Indonesia stack. This is the opposite of what orchestration is supposed to deliver.</li>
+          <li><strong>No routing intelligence.</strong> Yuno's commercial pitch is intelligent multi-PSP routing for better approval rates and lower cost. Indonesia becomes the market where that pitch does not apply.</li>
+          <li><strong>Leverage shifts permanently.</strong> Once exclusive, PayLink can deprioritize Yuno's roadmap requests, raise fees, or withhold performance data, because Yuno cannot credibly threaten to reroute volume.</li>
+          <li><strong>Stranded internal investment.</strong> The team is already 40% through the direct build — six months of engineering work. A three-year lock-in defers the value of that investment and delays Indonesia capability-building at the worst possible time.</li>
+        </ul>
+
+        <div class="sub-head">PayLink's approval rate claim: credible but unverifiable</div>
+        <p class="body-p">PayLink claims 4–6 percentage points higher approval rates than alternatives. This is plausible given their deeper local integrations, but they have provided only aggregated benchmarks — not transaction-level data. The claim should not be accepted at face value in commercial terms.</p>
+        <p class="body-p">More importantly, the approval rate advantage does not materially change Yuno's P&L. At a 0.07% net take rate, a 5pp approval uplift on $100M of attempted GMV increases Yuno's revenue by roughly $3.5K per year. It matters far more to merchants (incremental sales) than it does to Yuno's financials. To make up for the 2.9x revenue share reduction through approval rates alone, PayLink would need to generate roughly 2.9x more Indonesia GMV — not the 5–6% improvement approvals deliver.</p>
+        <p class="body-p">The approval advantage is a merchant retention argument, not a unit economics argument. If it accelerates merchant adoption in Year 1, that justifies the bridge. It does not justify a 36-month lock-in.</p>
+        <p class="body-p">Verification before signing: require six months of rolling transaction-level approval data segmented by payment method, issuer bank, and amount range, plus the right to run A/B routing tests with at least one of the at-risk merchants. If PayLink refuses, the claim is a negotiating position.</p>
+
+        <div class="sub-head">Competitive context: Pagoda Payments</div>
+        <p class="body-p">Pagoda entered Indonesia 18 months ago using a hybrid model — some direct integrations, some aggregator relationships — and is reportedly growing fast. One Yuno merchant has already started a pilot with them.</p>
+        <p class="body-p">The Pagoda threat is real but not invincible. If Yuno executes the bridge well — Indonesia live in 60 days, direct integrations by Month 12, routing optimization by Month 18 — Yuno arrives at a structurally stronger position than Pagoda: deeper routing intelligence, a proven enterprise merchant base in LATAM and Europe, and broader global coverage. The risk is that a 6–9 month delay lets Pagoda lock in the accounts that matter.</p>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: FINANCIAL MODEL -->
+  <div class="accordion" id="acc2">
+    <div class="acc-head" onclick="toggleAcc('acc2')">
+      <div class="acc-head-left">
+        <div class="acc-num">2</div>
+        <div>
+          <div class="acc-title">Financial Analysis</div>
+          <div class="acc-sub">Three-year model, sensitivity matrix, link to interactive model</div>
+        </div>
+      </div>
+      <div class="acc-chevron">▾</div>
+    </div>
+    <div class="acc-body">
+      <div class="acc-content">
+
+        <div class="sub-head">Model structure and key inputs</div>
+        <p class="body-p">The model compares three-year net contribution to Yuno under each path. It focuses on the four variables that actually move the decision: Indonesia GMV ramp and timing, unit economics (net take rate and revenue share), build cost, and probability of losing the three at-risk merchants.</p>
+        <p class="body-p"><strong>Key assumption: Yuno is not capital-constrained.</strong> The $400K direct build cost is material but not a decision blocker. The more relevant constraint is engineering bandwidth — the direct build team must be ring-fenced from PayLink integration work to keep the 6-month timeline credible.</p>
+
+        <div class="sub-head">Base case inputs</div>
+        <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>Input</th><th>Base case value</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Indonesia GMV (Y1 / Y2 / Y3)</td><td>$120M / $300M / $550M</td><td>Mid-range of case prompt; 25–30% annual growth</td></tr>
+            <tr><td>Direct net take rate</td><td>0.20% of GMV</td><td>Midpoint of 0.18–0.22% range</td></tr>
+            <tr><td>PayLink economics (Yuno share)</td><td>0.07% of GMV (= 0.20% × 35%)</td><td>2.9× lower than direct</td></tr>
+            <tr><td>Bridge: Year 1 / Year 2–3</td><td>PayLink economics / direct economics</td><td>Assumes exclusivity capped at 12 months</td></tr>
+            <tr><td>Direct build: Y1 GMV capture</td><td>50% of annual GMV</td><td>Reflects Month 9 launch and competitive catch-up lag</td></tr>
+            <tr><td>Direct build cost (one-time)</td><td>$400K</td><td>Engineering + compliance</td></tr>
+            <tr><td>At-risk merchant existing revenue</td><td>$360K/year</td><td>$180M GMV × 0.20% net take rate</td></tr>
+            <tr><td>Churn probability (Direct Build)</td><td>30% from Year 2</td><td>Key sensitivity — see matrix below</td></tr>
+            <tr><td>Discount rate</td><td>12%</td><td>Standard for growth-stage SaaS/payments</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <div class="sub-head">Three-year results</div>
+        <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Option</th>
+              <th class="right">Indonesia revenue (3yr)</th>
+              <th class="right">Retained merchant revenue (3yr)</th>
+              <th class="right">3-yr Total</th>
+              <th class="right">3-yr NPV</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>A. PayLink exclusive</td>
+              <td class="right">$718K</td>
+              <td class="right">$1,044K</td>
+              <td class="right">$1,762K</td>
+              <td class="right">$1,384K</td>
+            </tr>
+            <tr>
+              <td>B. Direct build</td>
+              <td class="right">$1,599K</td>
+              <td class="right">$864K</td>
+              <td class="right">$2,063K</td>
+              <td class="right">$1,549K</td>
+            </tr>
+            <tr class="row-highlight">
+              <td>C. Bridge (recommended)</td>
+              <td class="right">$1,568K</td>
+              <td class="right">$1,008K</td>
+              <td class="right">$2,176K</td>
+              <td class="right">$1,630K</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+        <p class="note">Bridge beats direct build because it captures Year 1 retention value (merchants stay, Indonesia GMV starts 7 months earlier) without locking in low economics beyond Month 12. Bridge beats PayLink exclusive because full economics are restored from Year 2 onward.</p>
+
+        <div class="sub-head">Sensitivity: NPV delta (Direct Build minus PayLink exclusive)</div>
+        <p class="body-p">The table below shows how the NPV advantage of Direct Build over PayLink shifts across churn probability and GMV capture assumptions. Positive values favour Direct Build; negative values favour PayLink or the Bridge.</p>
+        <div class="sens-wrap">
+        <table class="sens-table">
+          <thead>
+            <tr>
+              <th class="left-head">Churn prob. →<br>GMV capture ↓</th>
+              <th>10% churn</th>
+              <th>30% churn</th>
+              <th>50% churn</th>
+              <th>70% churn</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="cell-head">100% GMV capture</td>
+              <td class="cell-b">+$438K</td>
+              <td class="cell-b">+$329K</td>
+              <td class="cell-b">+$221K</td>
+              <td class="cell-n">+$112K</td>
+            </tr>
+            <tr>
+              <td class="cell-head">87% GMV capture</td>
+              <td class="cell-b">+$232K</td>
+              <td class="cell-n">+$125K</td>
+              <td class="cell-n">+$13K</td>
+              <td class="cell-p">−$99K</td>
+            </tr>
+            <tr>
+              <td class="cell-head">70% GMV capture</td>
+              <td class="cell-n">+$60K</td>
+              <td class="cell-p">−$49K</td>
+              <td class="cell-p">−$158K</td>
+              <td class="cell-p">−$267K</td>
+            </tr>
+            <tr>
+              <td class="cell-head">60% GMV capture</td>
+              <td class="cell-n">−$12K</td>
+              <td class="cell-p">−$121K</td>
+              <td class="cell-p">−$230K</td>
+              <td class="cell-p">−$339K</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+        <p class="note">Green = Direct Build preferred. Yellow = Bridge recommended (within $200K, marginal economics don't decide the case). Red = PayLink or Bridge preferred. GMV capture reflects how much of Indonesia potential Yuno can reach versus PayLink, given delayed entry. Base case: 87% capture, 30% churn — Direct Build narrowly positive but Bridge dominates both.</p>
+
+        <div class="model-link-box">
+          <p>
+            <strong>Editable Financial Model (.xlsx)</strong>
+            Four-sheet Excel model with live formulas — Summary, Inputs, Model, Sensitivity. Change yellow cells in the Inputs sheet; everything updates automatically. Opens in Google Sheets or Excel.
+          </p>
+          <div class="model-btns">
+            <a class="btn-model" href="yuno_model.xlsx" download="Yuno_Indonesia_Model.xlsx">↓ Download model (.xlsx)</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: EXECUTION PLAN -->
+  <div class="accordion" id="acc3">
+    <div class="acc-head" onclick="toggleAcc('acc3')">
+      <div class="acc-head-left">
+        <div class="acc-num">3</div>
+        <div>
+          <div class="acc-title">Execution Plan</div>
+          <div class="acc-sub">Negotiation terms, merchant retention, 60-day launch, parallel build</div>
+        </div>
+      </div>
+      <div class="acc-chevron">▾</div>
+    </div>
+    <div class="acc-body">
+      <div class="acc-content">
+
+        <div class="sub-head">Negotiation with PayLink — proposed term sheet</div>
+        <p class="body-p">Anchor the negotiation around a bridge-and-transition structure rather than arguing over revenue share alone. Give PayLink a credible GMV commitment from the three at-risk merchants and co-marketing positioning as Yuno's inaugural Indonesia partner. In return, ask for limited exclusivity and performance accountability.</p>
+
+        <div class="tbl-wrap">
+        <table class="neg-table">
+          <thead>
+            <tr><th style="width:20%">Term</th><th style="width:16%">Priority</th><th style="width:32%">Yuno's ask</th><th>Walk-away / fallback</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="term-col">Exclusivity</td>
+              <td><span class="prio-critical">Non-negotiable</span></td>
+              <td>Maximum 12–18 months. Auto-renewal only if performance SLAs are met. Explicit right to add other Indonesian PSPs after the bridge period.</td>
+              <td>Three-year blanket exclusivity with no exit right → decline the deal</td>
+            </tr>
+            <tr>
+              <td class="term-col">Performance SLAs</td>
+              <td><span class="prio-critical">Non-negotiable</span></td>
+              <td>Approval rate floor of 91% (midpoint of PayLink's claim). Monthly transaction-level data. Revenue share steps down 5pp if SLA is missed two months in a row.</td>
+              <td>No SLA and no data access → unacceptable; the approval rate claim is unenforceable</td>
+            </tr>
+            <tr>
+              <td class="term-col">Revenue share</td>
+              <td><span class="prio-imp">Important</span></td>
+              <td>Tiered structure: 65/35 at current volumes, stepping toward 50/50 above defined GMV thresholds. MFN protection on pricing.</td>
+              <td>Flat 65/35 for 3 years → accept for bridge if exclusivity is resolved, but push for the step-down</td>
+            </tr>
+            <tr>
+              <td class="term-col">Freedom to build</td>
+              <td><span class="prio-imp">Important</span></td>
+              <td>Explicit written permission to continue building direct integrations and to route volume to them after the exclusivity window.</td>
+              <td>Any clause restricting post-exclusivity migration rights → not acceptable</td>
+            </tr>
+            <tr>
+              <td class="term-col">90-day pilot</td>
+              <td><span class="prio-std">Preferred</span></td>
+              <td>Full partnership terms active during pilot; exclusivity clock does not start until pilot confirms SLA compliance.</td>
+              <td>Not a deal-breaker alone. Hard resistance from PayLink here signals low confidence in their own approval rate claims.</td>
+            </tr>
+            <tr>
+              <td class="term-col">Termination rights</td>
+              <td><span class="prio-std">Preferred</span></td>
+              <td>Right to terminate for underperformance, change of control at PayLink, regulatory action, or repeated outages. 30-day cure period.</td>
+              <td>Termination only available for material breach with 90+ day cure → weakens position too much</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+
+        <div class="sub-head">Merchant retention — two tracks, starting Monday</div>
+        <p class="body-p">These conversations should not wait for the PayLink negotiation to conclude. They run in parallel from day one.</p>
+
+        <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>Merchant</th><th>Risk profile</th><th>Action — this week</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>E-commerce platform</strong><br><span style="font-size:0.78rem;color:#888">Already piloting Pagoda</span></td>
+              <td>Full churn likely (~70%) if no Indonesia commitment in the next few days</td>
+              <td>CEO-to-CEO call within 48 hours. Confirm Indonesia goes live in 60 days. Offer 10–15% fee reduction on existing markets for six months (~$18–27K cost against $417K churn risk).</td>
+            </tr>
+            <tr>
+              <td><strong>SaaS company</strong><br><span style="font-size:0.78rem;color:#888">Pressuring account team</span></td>
+              <td>Indonesia-only risk most likely; full exit possible</td>
+              <td>VP-level call within 5 days. Share Indonesia launch timeline and Q1 2025 direct integration roadmap. Assign a dedicated success manager for Indonesia onboarding.</td>
+            </tr>
+            <tr>
+              <td><strong>Digital wallet</strong><br><span style="font-size:0.78rem;color:#888">Pressuring account team</span></td>
+              <td>Indonesia-only risk most likely; full exit possible</td>
+              <td>VP-level call within 5 days. Offer design partner status on Indonesia direct integrations — early access and input on product roadmap.</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+        <p class="note">Lead all three conversations with outcomes, not vendor relationships: "Indonesia is live in 60 days. Here is your onboarding timeline. Here is the routing roadmap for Q1 2025." Do not open with "we are partnering with PayLink."</p>
+
+        <div class="sub-head">12-month execution timeline</div>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot">W1</div>
+            <div>
+              <div class="tl-period">Weeks 1–2</div>
+              <div class="tl-title">Negotiate PayLink term sheet + begin merchant retention</div>
+              <div class="tl-text">Submit counter-proposal to PayLink (exclusivity cap, SLAs, freedom-to-build clause). Simultaneously: CEO call with e-commerce merchant; VP calls with the other two. Share a written Indonesia launch timeline with all three. Internal alignment: CEO, VP Strategy, Product, Legal, Sales, Risk in one session.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">M2</div>
+            <div>
+              <div class="tl-period">Month 2</div>
+              <div class="tl-title">Indonesia live via PayLink</div>
+              <div class="tl-text">30+ payment methods active. Three at-risk merchants onboarded. Begin collecting monthly transaction-level data against approval rate SLA. Start monthly PayLink performance review cadence.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">M8</div>
+            <div>
+              <div class="tl-period">Months 2–8</div>
+              <div class="tl-title">Direct build continues in parallel — ring-fenced team</div>
+              <div class="tl-text">The direct build team does not get pulled onto PayLink integration work. Prioritize the 2–3 PSP integrations that cover the majority of Indonesia GMV, not full 30+ method parity. Build configurable routing rules and merchant-level cutover tooling from the start.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">M9</div>
+            <div>
+              <div class="tl-period">Month 9</div>
+              <div class="tl-title">Direct integrations reach feature parity</div>
+              <div class="tl-text">Begin routing selective volume direct (higher-value bank transfers, lower-risk categories). Benchmark direct approval rates vs. PayLink using the transaction data collected since Month 2. Build the case for full transition.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot dim">M18</div>
+            <div>
+              <div class="tl-period">Months 12–18</div>
+              <div class="tl-title">Transition — PayLink becomes fallback, not primary</div>
+              <div class="tl-text">With direct integrations live and performance validated, Yuno has full negotiating leverage. Renegotiate to a non-exclusive preferred-partner arrangement or transition the majority of volume to direct integrations. Indonesia becomes a full orchestration market.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sub-head">If PayLink refuses a bridge — fallback plan</div>
+        <p class="body-p">If PayLink insists on three-year blanket exclusivity, do not sign. Instead:</p>
+        <ul class="body-ul">
+          <li>Ship an Indonesia MVP in 8–12 weeks covering the methods that drive the majority of enterprise GMV: one or two major e-wallets, virtual accounts, and cards. Not 30 methods on day one — good enough to retain the merchants who matter.</li>
+          <li>Use short-term, non-exclusive contracts with one or two local PSPs (Xendit, Midtrans) for method coverage. Avoid any aggregator demanding exclusivity.</li>
+          <li>Offer the three at-risk merchants a temporary commercial incentive — reduced take rate or service credits — in exchange for a written six-month commitment not to switch their full stack.</li>
+          <li>Publish a dated Indonesia roadmap to all enterprise accounts expanding into SEA. Proactively message the pipeline before Pagoda does.</li>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: ASSUMPTIONS & DUE DILIGENCE -->
+  <div class="accordion" id="acc4">
+    <div class="acc-head" onclick="toggleAcc('acc4')">
+      <div class="acc-head-left">
+        <div class="acc-num">4</div>
+        <div>
+          <div class="acc-title">Assumptions, Risks &amp; Due Diligence</div>
+          <div class="acc-sub">Model inputs, key uncertainties, PayLink due diligence checklist</div>
+        </div>
+      </div>
+      <div class="acc-chevron">▾</div>
+    </div>
+    <div class="acc-body">
+      <div class="acc-content">
+
+        <div class="sub-head">Financial model assumptions</div>
+        <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>Assumption</th><th>Value</th><th>Source</th><th>Confidence</th></tr>
+          </thead>
+          <tbody>
+            <tr class="ass-highlight">
+              <td><strong>Capital position</strong></td>
+              <td>Not capital-constrained — $400K is material but not a blocker</td>
+              <td>Stated assumption — not provided in case data</td>
+              <td>Assumed</td>
+            </tr>
+            <tr><td>Indonesia Y1 / Y2 / Y3 GMV</td><td>$120M / $300M / $550M</td><td>Mid-range of case prompt</td><td>Given (range)</td></tr>
+            <tr><td>Direct net take rate</td><td>0.20% (midpoint 0.18–0.22%)</td><td>Case data</td><td>Given (range)</td></tr>
+            <tr><td>PayLink take rate (Yuno share)</td><td>0.07% = 0.20% × 35%</td><td>Case data — given</td><td>Given</td></tr>
+            <tr><td>Direct build Y1 GMV capture</td><td>50% of annual</td><td>Month 9 launch + catch-up lag</td><td>Modelled</td></tr>
+            <tr><td>Engineering + compliance cost</td><td>$400K one-time</td><td>Case data</td><td>Given</td></tr>
+            <tr><td>At-risk merchant existing revenue</td><td>$360K/year ($180M × 0.20%)</td><td>Derived from case data</td><td>Given</td></tr>
+            <tr><td>Churn probability — Direct Build</td><td>30% from Year 2</td><td>Judgment; key sensitivity</td><td>Uncertain</td></tr>
+            <tr><td>Churn probability — Bridge / PayLink</td><td>5–10% from Year 2</td><td>Judgment; lower due to Q3 launch</td><td>Uncertain</td></tr>
+            <tr><td>Discount rate</td><td>12%</td><td>Standard for growth-stage payments</td><td>Assumed</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <div class="sub-head">Key uncertainties to resolve before signing</div>
+        <ul class="body-ul">
+          <li><strong>Definition of "net take rate" in the revenue share.</strong> Confirm whether PayLink's 65% is calculated on Yuno's net margin after underlying costs, or whether PayLink sets those underlying costs. If the latter, Yuno's effective economics could compress further.</li>
+          <li><strong>Local regulatory requirements for Yuno.</strong> Validate whether Yuno needs any Bank Indonesia registrations or if integrating through a licensed PSP is sufficient. If local licensing is required, the direct build timeline could extend materially.</li>
+          <li><strong>PayLink operational maturity.</strong> Uptime history, reconciliation accuracy, refund success rates, dispute handling, and settlement timeliness matter as much as approval rates for merchant satisfaction. These have not been assessed.</li>
+          <li><strong>Internal execution risk.</strong> PayLink integration can consume the same engineering bandwidth needed to finish direct integrations. Ring-fencing the direct build team is essential and must be an explicit decision from day one.</li>
+          <li><strong>Exclusivity and enterprise redundancy requirements.</strong> Some enterprise merchants require multi-PSP redundancy for business continuity. A single-provider Indonesia stack may be a commercial blocker for certain verticals regardless of approval rates.</li>
+        </ul>
+
+        <div class="sub-head">PayLink due diligence checklist</div>
+        <ul class="body-ul">
+          <li><strong>Licensing &amp; regulatory:</strong> copies of Bank Indonesia licenses, compliance audit reports, any regulatory actions in the last 24 months</li>
+          <li><strong>Approval rate verification:</strong> six months of transaction-level outcome data (BIN/issuer-level), segmented by payment method, merchant category, and amount band</li>
+          <li><strong>Technical:</strong> API documentation, webhook reliability, idempotency guarantees, p95/p99 latency, uptime SLOs and historic uptime, error codes, SDK availability</li>
+          <li><strong>Reconciliation:</strong> file formats, settlement timing, mismatch rates, dispute flows, reporting granularity</li>
+          <li><strong>Commercial:</strong> full fee schedule including FX markup, payout fees, reserves, minimums, and pricing guarantee (MFN clause)</li>
+          <li><strong>Security &amp; data:</strong> SOC2/ISO certification, encryption standards, sub-processors, breach notification terms, data retention and export policies</li>
+          <li><strong>Roadmap:</strong> how new payment rails are added, lead times, deprecation policies, and sandbox environment for ongoing development</li>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-left">
+      <div class="footer-logo">Y</div>
+      <span class="footer-text">Yuno.strategy — Indonesia Market Entry · February 2026 · Confidential</span>
+    </div>
+    <span class="footer-text">Prepared for CEO &amp; VP Strategy</span>
+  </div>
+
+</div><!-- /page -->
+
+<script>
+function toggleAcc(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+
+function printMemo() {
+  // Expand all accordions before printing so all content is visible
+  ['acc1','acc2','acc3','acc4'].forEach(function(id){
+    document.getElementById(id).classList.add('open');
+  });
+  setTimeout(function(){ window.print(); }, 120);
+}
+
+
+function exportCSV() {
+  var rows = [
+    ['Yuno Indonesia Strategy — Financial Model Summary'],
+    [''],
+    ['KEY ASSUMPTION'],
+    ['Capital position','Not capital-constrained — $400K build cost is material but not a blocker'],
+    [''],
+    ['BASE CASE INPUTS','Value'],
+    ['Indonesia GMV Y1 ($M)','120'],
+    ['Indonesia GMV Y2 ($M)','300'],
+    ['Indonesia GMV Y3 ($M)','550'],
+    ['Direct net take rate','0.20%'],
+    ['PayLink take rate (Yuno)','0.07% (= 0.20% × 35%)'],
+    ['Direct build Y1 GMV capture','50%'],
+    ['Engineering build cost ($K)','400'],
+    ['At-risk merchant annual revenue ($K)','360'],
+    ['Churn probability - Direct Build','30%'],
+    ['Churn probability - Bridge/PayLink','5-10%'],
+    ['Discount rate','12%'],
+    [''],
+    ['THREE-YEAR RESULTS','Indonesia Revenue ($K)','Retained Merchant Revenue ($K)','Total ($K)','NPV ($K)'],
+    ['A. PayLink exclusive','718','1044','1762','1384'],
+    ['B. Direct build','1599','864','2063','1549'],
+    ['C. Bridge (recommended)','1568','1008','2176','1630'],
+    [''],
+    ['SENSITIVITY: NPV delta Direct Build vs PayLink ($K)','10% churn','30% churn','50% churn','70% churn'],
+    ['100% GMV capture','+438','+329','+221','+112'],
+    ['87% GMV capture','+232','+125','+13','-99'],
+    ['70% GMV capture','+60','-49','-158','-267'],
+    ['60% GMV capture','-12','-121','-230','-339']
+  ];
+  var csv = rows.map(function(r){return r.join(',');}).join('\n');
+  var blob = new Blob([csv],{type:'text/csv'});
+  var url  = URL.createObjectURL(blob);
+  var a    = document.createElement('a');
+  a.href   = url; a.download='yuno_indonesia_strategy.csv'; a.click();
+  URL.revokeObjectURL(url);
+}
+</script>
+</body>
+</html>
