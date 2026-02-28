@@ -319,7 +319,6 @@ ol.body-ol li strong{color:#1C1E26;font-weight:600}
   </a>
   <div class="header-right">
     <span class="header-label">Confidential · Internal</span>
-    <button class="btn-download" onclick="printMemo()">↓ Download memo</button>
   </div>
 </header>
 
@@ -573,11 +572,11 @@ ol.body-ol li strong{color:#1C1E26;font-weight:600}
 
         <div class="model-link-box">
           <p>
-            <strong>Editable Financial Model (.xlsx)</strong>
-            Four-sheet Excel model with live formulas — Summary, Inputs, Model, Sensitivity. Change yellow cells in the Inputs sheet; everything updates automatically. Opens in Google Sheets or Excel.
+            <strong>Interactive Financial Model</strong>
+            Adjust GMV assumptions, take rates, and churn scenarios. Live sensitivity matrix updates in real time.
           </p>
           <div class="model-btns">
-            <a class="btn-model" href="yuno_model.xlsx" download="Yuno_Indonesia_Model.xlsx">↓ Download model (.xlsx)</a>
+            <a class="btn-model" href="yuno_model.html" target="_blank">→ Open interactive model</a>
           </div>
         </div>
 
@@ -817,51 +816,10 @@ function toggleAcc(id) {
 }
 
 function printMemo() {
-  // Expand all accordions before printing so all content is visible
   ['acc1','acc2','acc3','acc4'].forEach(function(id){
     document.getElementById(id).classList.add('open');
   });
   setTimeout(function(){ window.print(); }, 120);
-}
-
-
-function exportCSV() {
-  var rows = [
-    ['Yuno Indonesia Strategy — Financial Model Summary'],
-    [''],
-    ['KEY ASSUMPTION'],
-    ['Capital position','Not capital-constrained — $400K build cost is material but not a blocker'],
-    [''],
-    ['BASE CASE INPUTS','Value'],
-    ['Indonesia GMV Y1 ($M)','120'],
-    ['Indonesia GMV Y2 ($M)','300'],
-    ['Indonesia GMV Y3 ($M)','550'],
-    ['Direct net take rate','0.20%'],
-    ['PayLink take rate (Yuno)','0.07% (= 0.20% × 35%)'],
-    ['Direct build Y1 GMV capture','50%'],
-    ['Engineering build cost ($K)','400'],
-    ['At-risk merchant annual revenue ($K)','360'],
-    ['Churn probability - Direct Build','30%'],
-    ['Churn probability - Bridge/PayLink','5-10%'],
-    ['Discount rate','12%'],
-    [''],
-    ['THREE-YEAR RESULTS','Indonesia Revenue ($K)','Retained Merchant Revenue ($K)','Total ($K)','NPV ($K)'],
-    ['A. PayLink exclusive','718','1044','1762','1384'],
-    ['B. Direct build','1599','864','2063','1549'],
-    ['C. Bridge (recommended)','1568','1008','2176','1630'],
-    [''],
-    ['SENSITIVITY: NPV delta Direct Build vs PayLink ($K)','10% churn','30% churn','50% churn','70% churn'],
-    ['100% GMV capture','+438','+329','+221','+112'],
-    ['87% GMV capture','+232','+125','+13','-99'],
-    ['70% GMV capture','+60','-49','-158','-267'],
-    ['60% GMV capture','-12','-121','-230','-339']
-  ];
-  var csv = rows.map(function(r){return r.join(',');}).join('\n');
-  var blob = new Blob([csv],{type:'text/csv'});
-  var url  = URL.createObjectURL(blob);
-  var a    = document.createElement('a');
-  a.href   = url; a.download='yuno_indonesia_strategy.csv'; a.click();
-  URL.revokeObjectURL(url);
 }
 </script>
 </body>
